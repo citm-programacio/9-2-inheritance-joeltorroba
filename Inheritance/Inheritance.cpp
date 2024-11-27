@@ -2,10 +2,97 @@
 //
 
 #include <iostream>
+#include <string>
+using namespace std;
 
-int main()
-{
-    std::cout << "Hello World!\n";
+// Clase base Building
+class Building {
+protected:
+    string name; // Miembro protegido: nombre del edificio
+
+public:
+    // Constructor que recibe el nombre del edificio
+    Building(const string& name) : name(name) {}
+
+    // Método público para obtener el nombre del edificio
+    string getName() const {
+        return name;
+    }
+};
+
+// Clase derivada Warehouse
+class Warehouse : public Building {
+private:
+    int wood, rocks, wheat; // Miembros privados
+
+public:
+    // Constructor que recibe el nombre y los recursos
+    Warehouse(const string& name, int wood, int rocks, int wheat)
+        : Building(name), wood(wood), rocks(rocks), wheat(wheat) {}
+
+    // Método público para imprimir los recursos
+    void printResources() const {
+        cout << "Warehouse '" << getName() << "' resources:\n";
+        cout << "Wood: " << wood << "\n";
+        cout << "Rocks: " << rocks << "\n";
+        cout << "Wheat: " << wheat << "\n";
+    }
+};
+
+// Clase derivada House
+class House : public Building {
+private:
+    int floors, inhabitants, servants; // Miembros privados
+
+public:
+    // Constructor que recibe el nombre y los datos de la casa
+    House(const string& name, int floors, int inhabitants, int servants)
+        : Building(name), floors(floors), inhabitants(inhabitants), servants(servants) {}
+
+    // Método público para imprimir los datos de la casa
+    void printHouse() const {
+        cout << "House '" << getName() << "':\n";
+        cout << "Floors: " << floors << "\n";
+        cout << "Inhabitants: " << inhabitants << "\n";
+        cout << "Servants: " << servants << "\n";
+    }
+};
+
+// Clase derivada Temple
+class Temple : public Building {
+private:
+    string god;     // Miembro privado: dios del templo
+    int priests;    // Miembro privado: número de sacerdotes
+
+public:
+    // Constructor que recibe el nombre, dios y sacerdotes
+    Temple(const string& name, const string& god, int priests)
+        : Building(name), god(god), priests(priests) {}
+
+    // Método público para imprimir los datos del templo
+    void printTemple() const {
+        cout << "Temple '" << getName() << "':\n";
+        cout << "God: " << god << "\n";
+        cout << "Priests: " << priests << "\n";
+    }
+};
+
+int main() {
+    // Crear un Warehouse
+    Warehouse warehouse("Central Warehouse", 150, 300, 500);
+    warehouse.printResources();
+    cout << endl;
+
+    // Crear una House
+    House house("Villa Romana", 2, 10, 3);
+    house.printHouse();
+    cout << endl;
+
+    // Crear un Temple
+    Temple temple("Templo de Saturno", "Saturno", 5);
+    temple.printTemple();
+
+    return 0;
 }
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
